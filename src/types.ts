@@ -10,6 +10,7 @@ export interface HobsidainSettings {
   tableHeaderTextColor: string;
   llmProvider: LLMProvider;
   llmModel: string;
+  apiKey: string;
 }
 
 export const DEFAULT_SETTINGS: HobsidainSettings = {
@@ -22,6 +23,7 @@ export const DEFAULT_SETTINGS: HobsidainSettings = {
   tableHeaderTextColor: "#FFFFFF",
   llmProvider: "openrouter",
   llmModel: "anthropic/claude-sonnet-4.5-20260215",
+  apiKey: "",
 
 };
 

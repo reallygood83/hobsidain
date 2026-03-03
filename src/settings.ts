@@ -2,8 +2,6 @@ import { App, PluginSettingTab, Setting } from "obsidian";
 import type HobsidainPlugin from "./main";
 import { LLM_MODELS, type LLMProvider } from "./types";
 
-const API_KEY_STORAGE_KEY = "hobsidain-api-key";
-
 export class HobsidainSettingTab extends PluginSettingTab {
   plugin: HobsidainPlugin;
 
@@ -144,69 +142,22 @@ export class HobsidainSettingTab extends PluginSettingTab {
           });
       });
 
-    const apiKeySetting = new Setting(containerEl)
+    new Setting(containerEl)
       .setName("API Key")
-      .setDesc("Stored securely in OS keychain via Obsidian Secret Storage");
-
-    apiKeySetting.addText((text) => {
-      text.inputEl.type = "password";
-      text.setPlaceholder("Enter API key...");
-
-      this.loadApiKey().then((key) => {
-        if (key) text.setValue(key);
+      .setDesc("Stored in plugin data (data.json)")
+      .addText((text) => {
+        text.inputEl.type = "password";
+        text
+          .setPlaceholder("Enter API key...")
+          .setValue(this.plugin.settings.apiKey)
+          .onChange(async (value) => {
+            this.plugin.settings.apiKey = value;
+            await this.plugin.saveSettings();
+          });
       });
-
-      text.onChange(() => {});
-      return text;
-    });
-
-    apiKeySetting.addButton((btn) =>
-      btn.setButtonText("Save").onClick(async () => {
-        const input = apiKeySetting.controlEl.querySelector("input");
-        const value = input?.value ?? "";
-        if (value) {
-          await this.saveApiKey(value);
-          this.plugin.showNotice("API key saved securely");
-        }
-      })
-    );
-
-    apiKeySetting.addButton((btn) =>
-      btn.setButtonText("Delete").onClick(async () => {
-        await this.deleteApiKey();
-        const input = apiKeySetting.controlEl.querySelector("input");
-        if (input) (input as HTMLInputElement).value = "";
-        this.plugin.showNotice("API key deleted");
-      })
-    );
-
-    containerEl.createEl("p", {
-      text: "API key is stored securely in OS keychain via Obsidian's Secret Storage API.",
-      cls: "setting-item-description",
-    });
-  }
-
-  async loadApiKey(): Promise<string | null> {
-    try {
-      return await (this.app.vault as any).secretStorage?.get(API_KEY_STORAGE_KEY) ?? null;
-    } catch {
-      return null;
-    }
-  }
-
-  async saveApiKey(key: string): Promise<void> {
-    await (this.app.vault as any).secretStorage?.set(API_KEY_STORAGE_KEY, key);
-  }
-
-  async deleteApiKey(): Promise<void> {
-    await (this.app.vault as any).secretStorage?.delete(API_KEY_STORAGE_KEY);
   }
 }
 
-export async function getApiKey(app: App): Promise<string | null> {
-  try {
-    return await (app.vault as any).secretStorage?.get(API_KEY_STORAGE_KEY) ?? null;
-  } catch {
-    return null;
-  }
+export function getApiKey(plugin: HobsidainPlugin): string | null {
+  return plugin.settings.apiKey || null;
 }

@@ -1,6 +1,6 @@
 {
   "name": "hobsidain",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Export Obsidian notes to HWPX (한글) documents with AI-powered formatting",
   "main": "main.js",
   "scripts": {

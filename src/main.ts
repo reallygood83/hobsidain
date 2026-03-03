@@ -116,7 +116,7 @@ export default class HobsidainPlugin extends Plugin {
   }
 
   private async aiAssistedExport() {
-    const apiKey = await getApiKey(this.app);
+    const apiKey = getApiKey(this);
     if (!apiKey) {
       this.showNotice("Please set your API key in HWPX Export settings");
       return;
