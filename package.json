@@ -1,0 +1,21 @@
+{
+  "name": "hobsidain",
+  "version": "0.1.0",
+  "description": "Export Obsidian notes to HWPX (한글) documents with AI-powered formatting",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs production",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@masteroflearning/hwpxcore": "file:./vendor/hwpxcore"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.21.0",
+    "obsidian": "latest",
+    "typescript": "^5.5.0"
+  },
+  "license": "Apache-2.0"
+}

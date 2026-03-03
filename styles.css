@@ -1,0 +1,20 @@
+.hobsidain-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+}
+
+.hobsidain-progress .spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--text-faint);
+  border-top-color: var(--interactive-accent);
+  border-radius: 50%;
+  animation: hobsidain-spin 0.8s linear infinite;
+}
+
+@keyframes hobsidain-spin {
+  to { transform: rotate(360deg); }
+}
