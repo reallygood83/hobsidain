@@ -1,7 +1,7 @@
 {
   "id": "hobsidain",
   "name": "HWPX Export",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "minAppVersion": "1.11.0",
   "description": "Export Obsidian notes to HWPX (한글) documents with AI-powered formatting",
   "author": "reallygood83",

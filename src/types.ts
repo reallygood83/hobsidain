@@ -21,7 +21,7 @@ export const DEFAULT_SETTINGS: HobsidainSettings = {
   tableHeaderColor: "#2B579A",
   tableHeaderTextColor: "#FFFFFF",
   llmProvider: "openrouter",
-  llmModel: "anthropic/claude-sonnet-4-20250514",
+  llmModel: "anthropic/claude-sonnet-4.5-20260215",
 
 };
 
@@ -69,29 +69,29 @@ export type ContentBlock =
 
 export const LLM_MODELS: Record<LLMProvider, string[]> = {
   openrouter: [
+    "anthropic/claude-sonnet-4.5-20260215",
     "anthropic/claude-sonnet-4-20250514",
     "anthropic/claude-opus-4-20250514",
-    "anthropic/claude-3.5-haiku-20241022",
+    "openai/gpt-5.2",
     "openai/gpt-4.1",
-    "openai/gpt-4.1-mini",
     "openai/o3-mini",
+    "google/gemini-3-flash",
     "google/gemini-2.5-pro",
     "google/gemini-2.5-flash",
-    "google/gemini-2.0-flash",
   ],
   anthropic: [
+    "claude-sonnet-4.5-20260215",
     "claude-sonnet-4-20250514",
     "claude-opus-4-20250514",
-    "claude-3-5-haiku-20241022",
   ],
   openai: [
+    "gpt-5.2",
     "gpt-4.1",
-    "gpt-4.1-mini",
     "o3-mini",
   ],
   gemini: [
+    "gemini-3-flash",
     "gemini-2.5-pro",
     "gemini-2.5-flash",
-    "gemini-2.0-flash",
   ],
 };
