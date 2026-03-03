@@ -96,6 +96,34 @@ function getEndpointConfig(provider: LLMProvider, apiKey: string): LLMEndpointCo
         }),
         parseResponse: (data: any) => data.choices?.[0]?.message?.content ?? "",
       };
+
+    case "gemini":
+      return {
+        url: `https://generativelanguage.googleapis.com/v1beta/models/__MODEL__:generateContent?key=${apiKey}`,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        bodyTransform: (model, messages) => {
+          const systemMsg = messages.find((m) => m.role === "system");
+          const userMsgs = messages.filter((m) => m.role !== "system");
+          return {
+            __model: model,
+            systemInstruction: systemMsg ? { parts: [{ text: systemMsg.content }] } : undefined,
+            contents: userMsgs.map((m) => ({
+              role: m.role === "assistant" ? "model" : "user",
+              parts: [{ text: m.content }],
+            })),
+            generationConfig: {
+              temperature: 0.3,
+              responseMimeType: "application/json",
+            },
+          };
+        },
+        parseResponse: (data: any) => {
+          const candidate = data.candidates?.[0];
+          return candidate?.content?.parts?.[0]?.text ?? "";
+        },
+      };
   }
 }
 
@@ -137,8 +165,13 @@ export async function generateFormattedBlocks(
 
   const body = config.bodyTransform(settings.llmModel, messages);
 
+  let url = config.url;
+  if (settings.llmProvider === "gemini") {
+    url = url.replace("__MODEL__", settings.llmModel);
+  }
+
   const response = await requestUrl({
-    url: config.url,
+    url,
     method: "POST",
     headers: config.headers,
     body: JSON.stringify(body),

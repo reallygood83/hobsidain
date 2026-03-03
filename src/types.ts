@@ -1,4 +1,4 @@
-export type LLMProvider = "openrouter" | "anthropic" | "openai";
+export type LLMProvider = "openrouter" | "anthropic" | "openai" | "gemini";
 
 export interface HobsidainSettings {
   outputFolder: string;
@@ -22,6 +22,7 @@ export const DEFAULT_SETTINGS: HobsidainSettings = {
   tableHeaderTextColor: "#FFFFFF",
   llmProvider: "openrouter",
   llmModel: "anthropic/claude-sonnet-4-20250514",
+
 };
 
 export interface InlineFormatting {
@@ -69,17 +70,28 @@ export type ContentBlock =
 export const LLM_MODELS: Record<LLMProvider, string[]> = {
   openrouter: [
     "anthropic/claude-sonnet-4-20250514",
+    "anthropic/claude-opus-4-20250514",
     "anthropic/claude-3.5-haiku-20241022",
-    "openai/gpt-4o",
-    "openai/gpt-4o-mini",
-    "google/gemini-2.0-flash-001",
+    "openai/gpt-4.1",
+    "openai/gpt-4.1-mini",
+    "openai/o3-mini",
+    "google/gemini-2.5-pro",
+    "google/gemini-2.5-flash",
+    "google/gemini-2.0-flash",
   ],
   anthropic: [
     "claude-sonnet-4-20250514",
+    "claude-opus-4-20250514",
     "claude-3-5-haiku-20241022",
   ],
   openai: [
-    "gpt-4o",
-    "gpt-4o-mini",
+    "gpt-4.1",
+    "gpt-4.1-mini",
+    "o3-mini",
+  ],
+  gemini: [
+    "gemini-2.5-pro",
+    "gemini-2.5-flash",
+    "gemini-2.0-flash",
   ],
 };

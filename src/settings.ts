@@ -116,6 +116,7 @@ export class HobsidainSettingTab extends PluginSettingTab {
             openrouter: "OpenRouter",
             anthropic: "Anthropic",
             openai: "OpenAI",
+            gemini: "Google Gemini",
           })
           .setValue(this.plugin.settings.llmProvider)
           .onChange(async (value) => {
