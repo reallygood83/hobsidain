@@ -1,4 +1,4 @@
-export type LLMProvider = "openrouter" | "anthropic" | "openai" | "gemini";
+export type LLMProvider = "openrouter" | "anthropic" | "openai" | "gemini" | "cerebras";
 
 export interface HobsidainSettings {
   outputFolder: string;
@@ -93,5 +93,11 @@ export const LLM_MODELS: Record<LLMProvider, string[]> = {
     "gemini-3-flash",
     "gemini-2.5-pro",
     "gemini-2.5-flash",
+  ],
+  cerebras: [
+    "llama-4-scout-17b-16e-instruct",
+    "llama3.3-70b",
+    "qwen-3-32b",
+    "llama3.1-8b",
   ],
 };

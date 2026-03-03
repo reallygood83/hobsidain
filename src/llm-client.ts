@@ -97,6 +97,22 @@ function getEndpointConfig(provider: LLMProvider, apiKey: string): LLMEndpointCo
         parseResponse: (data: any) => data.choices?.[0]?.message?.content ?? "",
       };
 
+    case "cerebras":
+      return {
+        url: "https://api.cerebras.ai/v1/chat/completions",
+        headers: {
+          "Authorization": `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        bodyTransform: (model, messages) => ({
+          model,
+          messages,
+          response_format: { type: "json_object" },
+          temperature: 0.3,
+        }),
+        parseResponse: (data: any) => data.choices?.[0]?.message?.content ?? "",
+      };
+
     case "gemini":
       return {
         url: `https://generativelanguage.googleapis.com/v1beta/models/__MODEL__:generateContent?key=${apiKey}`,
